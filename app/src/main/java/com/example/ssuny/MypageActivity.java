@@ -34,7 +34,7 @@ public class MypageActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AlarmListActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AlarmActivity.class);
                 startActivity(intent);
             }
         });

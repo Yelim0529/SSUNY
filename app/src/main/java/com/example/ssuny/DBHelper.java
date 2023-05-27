@@ -1,76 +1,83 @@
 package com.example.ssuny;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
-    private static DBHelper instance = null;
+    static final String DATABASE_NAME = "alarm.db";
 
-    private static final String DATABASE_NAME = "search_history.db";
-    private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "search_history";
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_KEYWORD = "keyword";
-
-    public static DBHelper getInstance(Context context) {
-        if(instance == null) {
-            instance = new DBHelper(context);
-        }
-
-        return instance;
+    // DBHelper 생성자
+    public DBHelper(Context context, int version) {
+        super(context, DATABASE_NAME, null, version);
     }
 
-    public DBHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
+    // Alarm Table 생성
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE " + TABLE_NAME + " (" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_KEYWORD + " TEXT);";
-        db.execSQL(query);
+        db.execSQL("CREATE TABLE Alarm(name TEXT, day INT, num INT, year INT, month INT, dayOfMonth INT, hour INT, minute INT, ampm TEXT, memo TEXT)");
     }
 
+    // Alarm Table Upgrade
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS Alarm");
         onCreate(db);
     }
 
-    public void insertSearchHistory(String keyword) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_KEYWORD, keyword);
-        db.insert(TABLE_NAME, null, values);
+    // Alarm Table 데이터 입력
+    public void insert(String name, int day, int num, int year, int month, int dayOfMonth, int hour, int minute, String ampm, String memo) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO Alarm VALUES('" + name + "', " + day + ", '" + num + "', '" +
+                year + "','" + month + "','" + dayOfMonth + "','" + hour + "','" + minute + "', '" + ampm +"','" + memo + "')");
         db.close();
     }
 
-    public List<String> getAllSearchHistory() {
-        List<String> searchHistoryList = new ArrayList<>();
+    // Alarm Table 데이터 수정
+    public void Update(String name, int day, int num , int year, int month, int dayOfMonth, int hour, int minute, String ampm, String memo) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE Alarm SET day = " + day + ", num = " + num + ", year = " + year + ", month = " + month + ", dayOfMonth = " + dayOfMonth + ", hour = " + hour + ", minute = " + minute + ", smpm = " + ampm + ", memo = " + memo + " WHERE NAME = '" + name + "'");
+        db.close();
+    }
 
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + COLUMN_KEYWORD + " FROM " + TABLE_NAME + " ORDER BY " + COLUMN_ID + " DESC";
-        Cursor cursor = db.rawQuery(query, null);
+    // Alarm Table 데이터 삭제
+    public void Delete(String name) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE Alarm WHERE NAME = '" + name + "'");
+        db.close();
+    }
 
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                do {
-                    String keyword = cursor.getString(0);
-                    searchHistoryList.add(keyword);
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
+    // Alarm Table 조회
+    public ArrayList<Time> getResult() {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+        String result = "";
+
+        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
+        Cursor cursor = db.rawQuery("SELECT * FROM Alarm", null);
+        ArrayList<Time> al = new ArrayList<>();
+        while (cursor.moveToNext()) {
+
+            Time time = new Time();
+
+            time.setName(cursor.getString(0));
+            time.setReday(cursor.getInt(1));
+            time.setRenum(cursor.getInt(2));
+            time.setYear(cursor.getInt(3));
+            time.setMonth(cursor.getInt(4));
+            time.setDay(cursor.getInt(5));
+            time.setHour(cursor.getInt(6));
+            time.setMinute(cursor.getInt(7));
+            time.setAm_pm(cursor.getString(8));
+            time.setMemo(cursor.getString(9));
+
+            al.add(time);
         }
 
-        db.close();
-
-        return searchHistoryList;
+        return al;
     }
 }
+

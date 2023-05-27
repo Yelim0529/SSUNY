@@ -20,7 +20,9 @@
             android:layout_height="60dp"
             android:text="검색 기록"
             android:textSize="20dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+            android:gravity="left|center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:background="@drawable/text_box"/>
 
 
     </LinearLayout>

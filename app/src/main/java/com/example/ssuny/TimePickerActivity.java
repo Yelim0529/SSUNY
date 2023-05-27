@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -22,25 +23,43 @@ public class TimePickerActivity extends AppCompatActivity {
     private Button okBtn;
     private int hour, minute;
     private String am_pm;
+    EditText edtname, edtday, edtnum, edtmemo;
+
     private Date currentTime;
-    private String stMonth, stDay;
+    private String stYear, stMonth, stDay;
+    DBHelper dbHelper;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarm_set_cycle);
 
+        dbHelper = new DBHelper(TimePickerActivity.this, 1);
+
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+
+
 
         timePicker = (TimePicker) findViewById(R.id.timePicker);
 
         currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat day = new SimpleDateFormat("dd", Locale.getDefault());
         SimpleDateFormat month = new SimpleDateFormat("MM", Locale.getDefault());
+        SimpleDateFormat year = new SimpleDateFormat("YY", Locale.getDefault());
 
         stMonth = month.format(currentTime);
+        int smonth = Integer.parseInt(stMonth);
         stDay = day.format(currentTime);
+        int sday = Integer.parseInt(stDay);
+        stYear = year.format(currentTime);
+        int syear = Integer.parseInt(stYear);
+
+
+        edtname = (EditText) findViewById(R.id.alarm_name);
+        edtday = (EditText) findViewById(R.id.re_day);
+        edtnum = (EditText) findViewById(R.id.re_num);
+        edtmemo = (EditText) findViewById(R.id.alarm_memo);
 
         okBtn = (Button) findViewById(R.id.time_save_btn);
         okBtn.setOnClickListener(new View.OnClickListener() {
@@ -58,13 +77,24 @@ public class TimePickerActivity extends AppCompatActivity {
                 am_pm = AM_PM(hour);
                 hour = timeSet(hour);
 
+                String edName = edtname.getText().toString();
+                int edDay = Integer.parseInt(edtday.getText().toString());
+                int edNum = Integer.parseInt(edtnum.getText().toString());
+                String edMemo = edtmemo.getText().toString();
+
                 Intent sendIntent = new Intent(TimePickerActivity.this, MainActivity.class);
 
+                dbHelper.insert(edName, edDay, edNum, syear, smonth, sday, hour, minute, am_pm, edMemo);
+                sendIntent.putExtra("name", edName);
+                sendIntent.putExtra("reday", edDay);
+                sendIntent.putExtra("renum", edNum);
+                sendIntent.putExtra("year", syear);
+                sendIntent.putExtra("month", smonth);
+                sendIntent.putExtra("day", sday);
                 sendIntent.putExtra("hour", hour);
                 sendIntent.putExtra("minute", minute);
                 sendIntent.putExtra("am_pm", am_pm);
-                sendIntent.putExtra("month", stMonth);
-                sendIntent.putExtra("day", stDay);
+                sendIntent.putExtra("memo", edMemo);
                 setResult(RESULT_OK, sendIntent);
 
                 finish();
