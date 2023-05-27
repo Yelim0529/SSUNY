@@ -10,10 +10,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome!"
+        android:text="My medi"
         android:textColor="#EEDFDF"
-        android:textSize="48sp"
+        android:textSize="60sp"
         android:textStyle="bold"
+        android:fontFamily="@font/chab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
