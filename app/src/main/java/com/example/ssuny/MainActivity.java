@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
+        getSupportActionBar().setDisplayShowTitleEnabled(false); //파일 이름 제목으로 안뜨게
+        getSupportActionBar().setTitle("My medi"); //제목 설정
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
 
         Button search_btn = (Button) findViewById(R.id.btn_search);

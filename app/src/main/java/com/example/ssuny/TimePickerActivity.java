@@ -38,7 +38,7 @@ public class TimePickerActivity extends AppCompatActivity {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false); //파일 이름 제목으로 안뜨게
 
 
         timePicker = (TimePicker) findViewById(R.id.timePicker);
