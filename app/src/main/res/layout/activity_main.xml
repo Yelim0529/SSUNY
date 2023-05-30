@@ -22,6 +22,7 @@
                 android:background="@drawable/btn_purple_border"
                 android:gravity="center"
                 android:text="약 검색"
+                android:fontFamily="@font/geekblemalang"
                 android:textColor="#FFFFFF"
                 android:textSize="50dp" />
 
@@ -34,6 +35,7 @@
                 android:background="@drawable/btn_green_border"
                 android:gravity="center"
                 android:text="알람 설정"
+                android:fontFamily="@font/geekblemalang"
                 android:textColor="#FFFFFF"
                 android:textSize="50dp" />
 
@@ -47,6 +49,7 @@
                 android:background="@drawable/btn_blue_border"
                 android:gravity="center"
                 android:text="My page"
+                android:fontFamily="@font/geekblemalang"
                 android:textColor="#FFFFFF"
                 android:textSize="50dp" />
         </LinearLayout>

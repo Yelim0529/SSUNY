@@ -5,4 +5,12 @@
         android:fontWeight="400"
         android:font="@font/chab"/>
 
+    <font android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/geekblemalang"/>
+
+    <font android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/pretendardvariable"/>
+
 </font-family>

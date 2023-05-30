@@ -2,11 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,6 +20,7 @@
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:text="검색 기록"
+            android:fontFamily="@font/pretendardvariable"
             android:textSize="20dp"
             android:gravity="left|center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
