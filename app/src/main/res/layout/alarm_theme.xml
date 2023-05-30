@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="알람 제목"
+            android:fontFamily="@font/pretendardvariable"
             android:textColor="#FFFFFF"
             android:layout_marginTop="5dp" />
 
@@ -39,6 +40,7 @@
                 android:layout_marginStart="0dp"
                 android:paddingRight="10dp"
                 android:text="시간"
+                android:fontFamily="@font/pretendardvariable"
                 android:textColor="#FFFFFF"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -50,6 +52,7 @@
                 android:layout_toEndOf="@+id/time"
                 android:paddingRight="10dp"
                 android:text="분"
+                android:fontFamily="@font/pretendardvariable"
                 android:textColor="#FFFFFF"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -59,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/minute"
                 android:text="AM/PM"
+                android:fontFamily="@font/pretendardvariable"
                 android:textColor="#FFFFFF"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -75,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="10dp"
                 android:text="년"
+                android:fontFamily="@font/pretendardvariable"
                 android:textColor="#FFFFFF"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="14dp" />
@@ -86,6 +91,7 @@
                 android:layout_toRightOf="@+id/year"
                 android:paddingRight="10dp"
                 android:text="월"
+                android:fontFamily="@font/pretendardvariable"
                 android:textColor="#FFFFFF"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="14dp" />
@@ -97,6 +103,7 @@
                 android:layout_toRightOf="@+id/month"
                 android:paddingRight="10dp"
                 android:text="일"
+                android:fontFamily="@font/pretendardvariable"
                 android:textColor="#FFFFFF"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="14dp" />

@@ -20,6 +20,7 @@
             android:gravity="center"
             android:textSize="24dp"
             android:text="약 이름"
+            android:fontFamily="@font/pretendardvariable"
             android:textColor="#000000"
             android:textStyle="bold"/>
 
@@ -31,6 +32,7 @@
             android:layout_gravity="center"
             android:textSize="24sp"
             android:text="약 설명"
+            android:fontFamily="@font/pretendardvariable"
             android:background="@drawable/text_box"
             android:textColor="#000000" />
 
