@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout = "@layout/tool_bar"
+            android:id="@+id/toolbar" />
+
+        <TextView
+            android:id="@+id/medicine_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:textSize="24dp"
+            android:text="약 이름"
+            android:fontFamily="@font/pretendardvariable"
+            android:textColor="#000000"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/medicine_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:text="약 설명"
+            android:fontFamily="@font/pretendardvariable"
+            android:background="@drawable/text_box"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

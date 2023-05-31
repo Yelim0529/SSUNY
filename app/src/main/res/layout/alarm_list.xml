@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout = "@layout/tool_bar"
+            android:id="@+id/toolbar" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:textSize="24dp"
+            android:text="알람 목록"
+            android:fontFamily="@font/pretendardvariable"
+            android:textColor="#000000"
+            android:textStyle="bold"/>
+
+        <RelativeLayout
+            android:id="@+id/relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/add_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:background="@drawable/button"
+                android:text="설정하기"
+                android:fontFamily="@font/pretendardvariable"
+                android:textColor="#FFFFFF"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/remove_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/button"
+                android:text="삭제하기"
+                android:fontFamily="@font/pretendardvariable"
+                android:textColor="#FFFFFF"/>
+        </RelativeLayout>
+
+        <ListView
+            android:layout_marginTop="10dp"
+            android:id="@+id/alarm_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/alarm_theme">
+
+        </ListView>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
