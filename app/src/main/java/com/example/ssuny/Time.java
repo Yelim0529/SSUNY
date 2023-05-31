@@ -2,7 +2,7 @@ package com.example.ssuny;
 
 public class Time {
 
-    private int reday, renum, hour, minute, month, day, year;
+    private int reday, hour, minute, month, day, year;
     private String name, am_pm, memo;
 
     public String getName() { return name; }
@@ -10,9 +10,6 @@ public class Time {
 
     public int getReday() { return reday; }
     public void setReday(int reday) { this.reday = reday; }
-
-    public int getRenum() { return renum; }
-    public void setRenum(int renum) { this.renum = renum; }
 
     public int getHour() {
         return hour;

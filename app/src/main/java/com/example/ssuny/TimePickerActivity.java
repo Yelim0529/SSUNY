@@ -9,24 +9,21 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.TimePicker;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class TimePickerActivity extends AppCompatActivity {
     private TimePicker timePicker;
     private Button okBtn;
     private int hour, minute;
     private String am_pm;
-    EditText edtname, edtday, edtnum, edtmemo;
+    EditText edtname, edtday, edtmemo;
 
-    private Date currentTime;
-    private String stYear, stMonth, stDay;
+    private Date datePicker;
+    private int stYear, stMonth, stDay;
+
     DBHelper dbHelper;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +40,22 @@ public class TimePickerActivity extends AppCompatActivity {
 
         timePicker = (TimePicker) findViewById(R.id.timePicker);
 
-        currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat day = new SimpleDateFormat("dd", Locale.getDefault());
-        SimpleDateFormat month = new SimpleDateFormat("MM", Locale.getDefault());
-        SimpleDateFormat year = new SimpleDateFormat("YY", Locale.getDefault());
+        // DatePicker 초기화
+        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
 
-        stMonth = month.format(currentTime);
-        int smonth = Integer.parseInt(stMonth);
-        stDay = day.format(currentTime);
-        int sday = Integer.parseInt(stDay);
-        stYear = year.format(currentTime);
-        int syear = Integer.parseInt(stYear);
+        // OnDateChangedListener 등록
+        datePicker.init(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                stYear = year;
+                stMonth = monthOfYear+1;
+                stDay = dayOfMonth;
+            }
+        });
 
 
         edtname = (EditText) findViewById(R.id.alarm_name);
         edtday = (EditText) findViewById(R.id.re_day);
-        edtnum = (EditText) findViewById(R.id.re_num);
         edtmemo = (EditText) findViewById(R.id.alarm_memo);
 
         okBtn = (Button) findViewById(R.id.time_save_btn);
@@ -66,7 +63,7 @@ public class TimePickerActivity extends AppCompatActivity {
             //안드로이드 버전별로 시간값 세팅을 다르게 해주어야 함. 여기선 Android API 23
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     hour = timePicker.getHour();
                     minute = timePicker.getMinute();
                 } else {
@@ -79,18 +76,16 @@ public class TimePickerActivity extends AppCompatActivity {
 
                 String edName = edtname.getText().toString();
                 int edDay = Integer.parseInt(edtday.getText().toString());
-                int edNum = Integer.parseInt(edtnum.getText().toString());
                 String edMemo = edtmemo.getText().toString();
 
                 Intent sendIntent = new Intent(TimePickerActivity.this, MainActivity.class);
 
-                dbHelper.insert(edName, edDay, edNum, syear, smonth, sday, hour, minute, am_pm, edMemo);
+                dbHelper.insert(edName, edDay, stYear, stMonth, stDay, hour, minute, am_pm, edMemo);
                 sendIntent.putExtra("name", edName);
                 sendIntent.putExtra("reday", edDay);
-                sendIntent.putExtra("renum", edNum);
-                sendIntent.putExtra("year", syear);
-                sendIntent.putExtra("month", smonth);
-                sendIntent.putExtra("day", sday);
+                sendIntent.putExtra("year", stYear);
+                sendIntent.putExtra("month", stMonth);
+                sendIntent.putExtra("day", stDay);
                 sendIntent.putExtra("hour", hour);
                 sendIntent.putExtra("minute", minute);
                 sendIntent.putExtra("am_pm", am_pm);
