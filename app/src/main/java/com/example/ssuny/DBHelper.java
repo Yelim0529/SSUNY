@@ -46,7 +46,9 @@ public class DBHelper extends SQLiteOpenHelper {
     // Alarm Table 데이터 삭제
     public void Delete(String name) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE Alarm WHERE NAME = '" + name + "'");
+        String whereClause = "NAME = ?";
+        String[] whereArgs = { name };
+        db.delete("Alarm", whereClause, whereArgs);
         db.close();
     }
 
