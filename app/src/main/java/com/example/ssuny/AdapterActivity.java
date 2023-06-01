@@ -1,16 +1,22 @@
 package com.example.ssuny;
 
-
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class AdapterActivity extends BaseAdapter {
+    private DBHelper dbHelper;
+    public AdapterActivity(Context context) {
+        dbHelper = new DBHelper(context.getApplicationContext(), 1);
+    }
 
-//    public ArrayList<Time> listviewitem = new ArrayList<Time>();
+    //    public ArrayList<Time> listviewitem = new ArrayList<Time>();
 //    private ArrayList<Time> arrayList = listviewitem;
     private ArrayList<Time> arrayList = new ArrayList<Time>();
     //백업 arrayList
@@ -25,6 +31,14 @@ public class AdapterActivity extends BaseAdapter {
 
     @Override public long getItemId(int position) {
         return position;
+    }
+
+    public String getItemName(int position) {
+        if (position >= 0 && position < arrayList.size()) {
+            Time time = arrayList.get(position);
+            return time.getName();
+        }
+        return null;
     }
 
     @Override public View getView(int position, View convertView, ViewGroup parent) {
@@ -95,7 +109,10 @@ public class AdapterActivity extends BaseAdapter {
         if(arrayList.size() < 1) {
 
         } else {
-            arrayList.remove(arrayList.size()-1);
+            int position = arrayList.size() - 1;
+            String itemName = getItemName(position);
+            arrayList.remove(position);
+            dbHelper.Delete(itemName);
         }
     }
 

@@ -60,10 +60,9 @@ public class TimePickerActivity extends AppCompatActivity {
 
         okBtn = (Button) findViewById(R.id.time_save_btn);
         okBtn.setOnClickListener(new View.OnClickListener() {
-            //안드로이드 버전별로 시간값 세팅을 다르게 해주어야 함. 여기선 Android API 23
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) { //안드로이드 버전별로 시간값 세팅을 다르게 해주어야 함. 여기선 Android API 30(R)
                     hour = timePicker.getHour();
                     minute = timePicker.getMinute();
                 } else {

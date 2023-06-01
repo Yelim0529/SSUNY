@@ -41,7 +41,7 @@ public class AlarmActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
         getSupportActionBar().setDisplayShowTitleEnabled(false); //파일 이름 제목으로 안뜨게
 
-        arrayAdapter = new AdapterActivity();
+        arrayAdapter = new AdapterActivity(AlarmActivity.this);
 
         listView = (ListView) findViewById(R.id.alarm_list);
         listView.setAdapter(arrayAdapter);
