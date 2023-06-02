@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
     // Alarm Table Upgrade
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS Alarm");
+         db.execSQL("DROP TABLE IF EXISTS Alarm");
         onCreate(db);
     }
 
