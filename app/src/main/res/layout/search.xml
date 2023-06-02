@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/search_name"
+            android:id="@+id/search_view"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -22,7 +22,7 @@
             android:background="@drawable/text_border"
             android:hint="  약 이름을 입력하세요"
             android:fontFamily="@font/pretendardvariable"
-            android:inputType="text" />
+            android:inputType="textNoSuggestions" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/search_img_button"

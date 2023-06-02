@@ -6,7 +6,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -33,16 +32,27 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
         getSupportActionBar().setDisplayShowTitleEnabled(false); //파일 이름 제목으로 안뜨게
 
-        editTextSearch = findViewById(R.id.search_name);
+        editTextSearch = findViewById(R.id.search_view);
+       // SearchView searchView = findViewById(R.id.search_view);
+
 
         Button search_btn = findViewById(R.id.search_button);
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                startActivity(intent);
+               // Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+              //  startActivity(intent);
+                System.out.println(editTextSearch.getText().toString());
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        request(editTextSearch.getText().toString()); //쿼리로 변경
+                    }
+                }).start();
             }
         });
+
+
 
         Button imgButton = findViewById(R.id.search_img_button);
         imgButton.setOnClickListener(new View.OnClickListener() {
@@ -66,36 +76,6 @@ public class SearchActivity extends AppCompatActivity {
 
     //------------
     StringBuilder output = new StringBuilder(); //새로 추가
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        SearchView searchView = findViewById(R.id.search_view);
-        TextView resultTextView = findViewById(R.id.textView);
-        resultTextView.setText(getResult());
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) { //검색버튼 누르면 검색한 단어 나옴
-                System.out.println(query);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        request(query); //쿼리로 변경
-                    }
-                }).start();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) { //실시간으로 타자치는거 뉴텍스트로 들어옴.
-                resultTextView.setText(search(newText));
-                return true;
-            }
-        });
-    }
-
     private String search(String query) { //포함된 단어만 보이게 필터링
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < items.size(); i++) {
@@ -156,5 +136,8 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         System.out.println(output.toString()); //응답
+        Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+        intent.putExtra("output", output.toString());
+        startActivity(intent);
     }
 }
