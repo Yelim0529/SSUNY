@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-<<<<<<< HEAD
     <uses-permission android:name="android.permission.INTERNET" />
 
-=======
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
->>>>>>> 4b5eb08dd106c58cc1123e90c162dc29bf7f86e0
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_foreground"

@@ -55,10 +55,10 @@ public class SearchResultActivity extends AppCompatActivity {
         String description = "";
 
         // TextView에 이름과 설명 설정
-        nameTextView.setText("Name: " + drugName);
-        descriptionTextView1.setText("Description: " + entpName);
-        descriptionTextView2.setText("Description: " + efcyQesitm);
-        descriptionTextView3.setText("Description: " + useMethodQesitm);
+        nameTextView.setText("이름: " + drugName);
+        descriptionTextView1.setText("제조사: " + entpName);
+        descriptionTextView2.setText("효능: " + efcyQesitm);
+        descriptionTextView3.setText("복용 방법: " + useMethodQesitm);
 
     }
     @Override
