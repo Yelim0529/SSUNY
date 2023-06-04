@@ -7,10 +7,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import org.json.JSONException;
@@ -19,7 +15,10 @@ import org.json.JSONObject;
 public class SearchResultActivity extends AppCompatActivity {
 
     private TextView nameTextView;
-    private TextView descriptionTextView;
+    private TextView descriptionTextView1;
+    private TextView descriptionTextView2;
+    private TextView descriptionTextView3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,10 @@ public class SearchResultActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false); //파일 이름 제목으로 안뜨게
 
         nameTextView = findViewById(R.id.medicine_name);
-        descriptionTextView = findViewById(R.id.medicine_info);
+        descriptionTextView1 = findViewById(R.id.medicine_info1);
+        descriptionTextView2 = findViewById(R.id.medicine_info2);
+        descriptionTextView3 = findViewById(R.id.medicine_info3);
+
 
         Intent intent = getIntent();
         // 이름과 설명을 가져오는 로직
@@ -54,7 +56,10 @@ public class SearchResultActivity extends AppCompatActivity {
 
         // TextView에 이름과 설명 설정
         nameTextView.setText("Name: " + drugName);
-        descriptionTextView.setText("Description: " + useMethodQesitm);
+        descriptionTextView1.setText("Description: " + entpName);
+        descriptionTextView2.setText("Description: " + efcyQesitm);
+        descriptionTextView3.setText("Description: " + useMethodQesitm);
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

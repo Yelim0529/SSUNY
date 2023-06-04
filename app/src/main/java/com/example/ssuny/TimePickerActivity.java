@@ -3,6 +3,8 @@ package com.example.ssuny;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,7 +14,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class TimePickerActivity extends AppCompatActivity {
     private TimePicker timePicker;
@@ -26,9 +35,58 @@ public class TimePickerActivity extends AppCompatActivity {
 
     DBHelper dbHelper;
 
+    private Calendar calendar;
+
+    private List<Calendar> alarmTimes = new ArrayList<>();
+
+    private void setAlarm() {
+        EditText re_day = (EditText) findViewById(R.id.re_day);
+        int rday = Integer.parseInt(re_day.getText().toString());
+
+        // Receiver 설정
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        // 알람 설정
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+
+        for (int i = 0; i < rday; i++) {
+            // 알람 시간 설정
+            this.calendar.set(Calendar.HOUR_OF_DAY, this.timePicker.getHour());
+            this.calendar.set(Calendar.MINUTE, this.timePicker.getMinute());
+            this.calendar.set(Calendar.SECOND, 0);
+            this.calendar.add(Calendar.DATE, i);
+
+            // 현재일보다 이전이면 등록 실패
+            if (this.calendar.before(Calendar.getInstance())) {
+                Toast.makeText(this, "알람시간이 현재시간보다 이전일 수 없습니다.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            // 알람 시간을 리스트에 추가
+            alarmTimes.add((Calendar) calendar.clone());
+
+
+            //intent.putExtra("content", "알람 등록 테스트");
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, alarmTimes.size() - 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            // PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            //        alarmManager.set(AlarmManager.RTC_WAKEUP, this.calendar.getTimeInMillis(), pendingIntent);
+
+            alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(this.calendar.getTimeInMillis(), null), pendingIntent);
+            //alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(this.calendar.getTimeInMillis() + 10000, null), pendingIntent1);
+
+            // Toast 보여주기 (알람 시간 표시)
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            Toast.makeText(this, "Alarm : " + rday + "일 주기로 Time : " + format.format(calendar.getTime()), Toast.LENGTH_LONG).show();
+        }
+
+    }
+
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarm_set_cycle);
+
+        this.calendar = Calendar.getInstance();
 
         dbHelper = new DBHelper(TimePickerActivity.this, 1);
 
@@ -76,6 +134,8 @@ public class TimePickerActivity extends AppCompatActivity {
                 String edName = edtname.getText().toString();
                 int edDay = Integer.parseInt(edtday.getText().toString());
                 String edMemo = edtmemo.getText().toString();
+
+                setAlarm();
 
                 Intent sendIntent = new Intent(TimePickerActivity.this, MainActivity.class);
 
