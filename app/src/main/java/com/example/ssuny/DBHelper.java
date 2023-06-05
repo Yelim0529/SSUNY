@@ -1,9 +1,13 @@
 package com.example.ssuny;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -15,16 +19,18 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, version);
     }
 
-    // Alarm Table 생성
+    // Alarm, Search Table 생성
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE Alarm(name TEXT, day INT, year INT, month INT, dayOfMonth INT, hour INT, minute INT, ampm TEXT, memo TEXT)");
+        db.execSQL("CREATE TABLE Search (json TEXT)");
     }
 
-    // Alarm Table Upgrade
+    // Alarm, Search Table Upgrade
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
          db.execSQL("DROP TABLE IF EXISTS Alarm");
+        db.execSQL("DROP TABLE IF EXISTS Search");
         onCreate(db);
     }
 
@@ -80,5 +86,49 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return al;
     }
+
+    // 검색 기록 저장 ------------------
+    public void saveJsonData(String json) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO Search VALUES('" + json + "')");
+        db.close();
+    }
+
+    public ArrayList<String> getSearchResult() {
+        // 읽기가 가능하게 DB 열기
+        SQLiteDatabase db = getReadableDatabase();
+        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
+        Cursor cursor = db.rawQuery("SELECT * FROM Search", null);
+        ArrayList<String> resultData = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            String json = cursor.getString(0);
+
+            resultData.add(json);
+        }
+
+        return resultData;
+    }
+
+    //특정 위치에 해당하는 json 데이터 반환
+  /*  public String getJsonData(int position) {
+        String jsonData = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            cursor = db.rawQuery("SELECT json_data FROM your_table_name LIMIT 1 OFFSET " + position, null);
+            if (cursor.moveToFirst()) {
+                jsonData = cursor.getString(cursor.getColumnIndex("json_data"));
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return jsonData;
+    }*/
+
 }
 

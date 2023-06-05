@@ -33,15 +33,11 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false); //파일 이름 제목으로 안뜨게
 
         editTextSearch = findViewById(R.id.search_view);
-       // SearchView searchView = findViewById(R.id.search_view);
-
 
         Button search_btn = findViewById(R.id.search_button);
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-              //  startActivity(intent);
                 System.out.println(editTextSearch.getText().toString());
                 new Thread(new Runnable() {
                     @Override
@@ -51,8 +47,6 @@ public class SearchActivity extends AppCompatActivity {
                 }).start();
             }
         });
-
-
 
         Button imgButton = findViewById(R.id.search_img_button);
         imgButton.setOnClickListener(new View.OnClickListener() {
@@ -136,8 +130,8 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         System.out.println(output.toString()); //응답
-        Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-        intent.putExtra("output", output.toString());
+        Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class); //화면 넘어가는 코드
+        intent.putExtra("output", output.toString()); //데이터넣는거 json string db를 아웃풋 스트링에
         startActivity(intent);
     }
 }
