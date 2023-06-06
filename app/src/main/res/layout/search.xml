@@ -29,9 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="이미지로 검색하기"
-            android:fontFamily="@font/pretendardvariable"
             android:background="#00ff0000"
+            android:fontFamily="@font/pretendardvariable"
+            android:text="이미지로 검색하기"
             android:textColor="#6C25BE"
             android:textSize="16sp" />
 
