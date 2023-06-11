@@ -99,7 +99,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
         Cursor cursor = db.rawQuery("SELECT * FROM Search", null);
-        ArrayList<String> resultData = new ArrayList<>();
+        ArrayList<String> resultData = new ArrayList<String>();
         while (cursor.moveToNext()) {
             String json = cursor.getString(0);
 
@@ -109,26 +109,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return resultData;
     }
 
-    //특정 위치에 해당하는 json 데이터 반환
-  /*  public String getJsonData(int position) {
-        String jsonData = "";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
 
-        try {
-            cursor = db.rawQuery("SELECT json_data FROM your_table_name LIMIT 1 OFFSET " + position, null);
-            if (cursor.moveToFirst()) {
-                jsonData = cursor.getString(cursor.getColumnIndex("json_data"));
-            }
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
-        }
-
-        return jsonData;
-    }*/
 
 }
 

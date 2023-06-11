@@ -98,7 +98,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void request(String query) {
         try {
-            URL url = new URL("http://52.78.100.143:8080/api/searchDrug/" + query);
+            URL url = new URL("http://52.78.100.143:8080/api/searchDrug/" + query );
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             if (connection != null) {
