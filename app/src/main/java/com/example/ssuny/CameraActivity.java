@@ -1,7 +1,5 @@
 package com.example.ssuny;
 
-//카메라 회전 고치기
-//한 창에 약 정보 다 띄우기
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
